@@ -1,0 +1,20 @@
+school-app/
+├── index.html         # الصفحة الرئيسية
+├── materials.html     # صفحة المواد
+├── lesson.html        # صفحة المادة (الدرس)
+├── review.html        # صفحة المراجعة والأسئلة
+├── style.css          # ملف CSS للتصميم
+├── script.js          # ملف JavaScript للوظائف
+├── data/              # مجلد يحتوي على بيانات JSON
+│   ├── elementary/   # بيانات المرحلة الابتدائية
+│   │   ├── arabic.json   # بيانات مادة اللغة العربية
+│   │   └── math.json     # بيانات مادة الرياضيات
+│   ├── preparatory/  # بيانات المرحلة الإعدادية
+│   │   ├── science.json  # بيانات مادة العلوم
+│   │   └── ...
+│   └── secondary/   # بيانات المرحلة الثانوية
+│       ├── physics.json  # بيانات مادة الفيزياء
+│       └── ...
+├── service-worker.js  # ملف Service Worker لتفعيل PWA
+├── manifest.json      # ملف Manifest لتحديد خصائص PWA
+└── assets/             # (اختياري) صور وأيقونات

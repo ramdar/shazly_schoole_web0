@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الدرس</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>تطبيق مراجعة الدروس</h1>
+    <nav>
+      <a href="index.html">الرئيسية</a>
+    </nav>
+  </header>
+  <main>
+    <section id="lesson-content">
+      <h2>اسم الدرس</h2>
+      <div id="lesson-sections">
+        <!-- سيتم ملؤها بواسطة JavaScript -->
+      </div>
+      <a href="review.html" class="review-button">المراجعة والأسئلة</a>
+    </section>
+  </main>
+  <footer>
+    <p>جميع الحقوق محفوظة &copy; 2024</p>
+  </footer>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // يمكنك هنا الحصول على اسم المادة أو الدرس من URL
+      loadLesson('اسم_المادة', 'اسم_الدرس'); // استبدل بالأسماء الحقيقية
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المراجعة والأسئلة</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>تطبيق مراجعة الدروس</h1>
+    <nav>
+      <a href="index.html">الرئيسية</a>
+    </nav>
+  </header>
+  <main>
+    <section id="review-questions">
+      <h2>المراجعة والأسئلة</h2>
+      <div id="question-container">
+        <!-- سيتم ملؤها بواسطة JavaScript -->
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>جميع الحقوق محفوظة &copy; 2024</p>
+  </footer>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      loadReviewQuestions('اسم_المادة', 'اسم_الدرس'); // استبدل بالأسماء الحقيقية
+    });
+  </script>
+</body>
+</html>
