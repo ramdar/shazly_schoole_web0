@@ -151,7 +151,7 @@ h3 {
             questionDiv.classList.add('question');
 
             questionDiv.innerHTML = `
-          <p>${questionData.id}.  <span class="drop-zone" data-correct="${questionData.correctAnswer}" id="drop${questionData.id}"></span>${questionData.question}</p>
+          <p>${questionData.id}.  <span class="drop-zone" data-correct="${questionData.correctAnswer}" id="drop${questionData.id}">...........</span>${questionData.question}</p>
             <div class="feedback" id="feedback${questionData.id}"></div>
           `;
             questionsContainer.appendChild(questionDiv);
