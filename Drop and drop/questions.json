@@ -1,0 +1,54 @@
+[
+  {
+    "lessonName": "أسماء الإشارة",
+    "optionsSet": ["هذا", "هذه", "هؤلاء", "هذان", "هاتان"],
+    "questions": [
+      {
+        "id": 1,
+        "question": "مهمّلان.",
+        "correctAnswer": "هذان"
+      },
+      {
+        "id": 2,
+        "question": "مدينتان كبيرتان.",
+        "correctAnswer": "هاتان"
+      },
+      {
+        "id": 3,
+        "question": "رابحون.",
+        "correctAnswer": "هؤلاء"
+      },
+      {
+        "id": 4,
+        "question": "نجمة.",
+        "correctAnswer": "هذه"
+      },
+      {
+        "id": 5,
+        "question": "قائد شجاع.",
+        "correctAnswer": "هذا"
+      },
+      {
+        "id": 6,
+        "question": "مخلصات.",
+        "correctAnswer": "هؤلاء"
+      }
+    ]
+  },
+  {
+    "lessonName": "الضمائر",
+    "optionsSet": ["أنا", "نحن", "هو", "هي", "هما"],
+    "questions": [
+      {
+        "id": 1,
+        "question": "........ طالب مجتهد.",
+        "correctAnswer": "أنا"
+      },
+      {
+        "id": 2,
+        "question": "........ طلاب متفوقون.",
+        "correctAnswer": "نحن"
+      }
+    ]
+  }
+]

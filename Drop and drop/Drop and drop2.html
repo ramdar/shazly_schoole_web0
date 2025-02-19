@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تمارين لغوية - السحب والإفلات</title>
+  <style>
+   body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 20px;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+h1, h2 {
+  color: #007bff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.lesson-container {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.options-container {
+  margin-bottom: 20px;
+}
+
+.options {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Allow options to wrap to the next line */
+}
+
+.options li {
+  margin: 5px;
+}
+
+.option {
+  padding: 8px 12px;
+  background-color: #ddd;
+  border-radius: 5px;
+  cursor: move;
+  display: inline-block; /* Ensure they are displayed in a line */
+}
+
+.question {
+  margin-bottom: 10px;
+}
+
+.drop-zone {
+  width: 150px;
+  height: 30px;
+  border: 1px dashed #ccc;
+  margin: 5px;
+  text-align: center;
+  line-height: 30px;
+}
+
+.feedback {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+  </style>
+</head>
+<body>
+  <h1>تمارين لغوية - السحب والإفلات</h1>
+    <h2>الرجاء اختيار الدرس</h2>
+
+    <select id="lesson-select">
+        <option value="">اختر الدرس...</option>
+    </select>
+  <div id="lesson-container" class="lesson-container" style="display:none;">
+    <h3 id = "lesson-name"></h3>
+    <div class="exercise" id="exercise">
+      <div class="options-container">
+        <ul class="options" id="options-list">
+          <!-- يتم تعبئتها من JavaScript -->
+        </ul>
+      </div>
+
+      <div id="questions-container">
+        <!-- يتم تعبئتها من JavaScript -->
+      </div>
+
+      <div id="feedback-container">
+        <!-- يتم تعبئتها من JavaScript -->
+      </div>
+    </div>
+  </div>
+  <script>
+    let currentLesson;
+    // Fetch Options and questions from JSON file
+    async function loadQuestions() {
+      const response = await fetch('questions.json');
+      const data = await response.json();
+      return data
+    }
+    function populateLessons(lessons){
+      const lessonSelect = document.getElementById("lesson-select");
+      lessons.forEach((lesson, index) => {
+              const option = document.createElement("option");
+              option.value = index;
+              option.textContent = lesson.lessonName;
+              lessonSelect.appendChild(option);
+          });
+    }
+    function loadExercise(questions, optionsSet,lessonName) {
+
+       const lessonNameSpan = document.getElementById('lesson-name')
+        lessonNameSpan.textContent= lessonName;
+        const optionsList = document.getElementById('options-list');
+        optionsList.innerHTML = '';
+
+        // Get the questions container and clear it
+        const questionsContainer = document.getElementById('questions-container');
+        questionsContainer.innerHTML = '';
+
+        // Build options List
+        const optionsSetArray = new Set(optionsSet);
+
+        optionsSetArray.forEach(option => {
+            const optionElement = document.createElement('li');
+            const optionSpan = document.createElement('span');
+            optionSpan.classList.add('option');
+            optionSpan.draggable = true;
+            optionSpan.id = `option-${option}`;
+            optionSpan.textContent = option;
+
+            optionElement.appendChild(optionSpan);
+            optionsList.appendChild(optionElement);
+
+        })
+        // Build questions
+        questions.forEach(questionData => {
+
+            const questionDiv = document.createElement('div');
+            questionDiv.classList.add('question');
+
+            questionDiv.innerHTML = `
+          <p>${questionData.id}.  <span class="drop-zone" data-correct="${questionData.correctAnswer}" id="drop${questionData.id}"></span>${questionData.question}</p>
+            <div class="feedback" id="feedback${questionData.id}"></div>
+          `;
+            questionsContainer.appendChild(questionDiv);
+
+        });
+
+        addDragEventListeners()
+        document.getElementById('lesson-container').style.display = 'block'
+
+    }
+    function addDragEventListeners() {
+      const options = document.querySelectorAll('.option');
+      const dropZones = document.querySelectorAll('.drop-zone');
+
+      let draggedOption = null;
+
+      // Drag Events
+      options.forEach(option => {
+        option.addEventListener('dragstart', function (e) {
+          draggedOption = this;
+          this.style.opacity = '0.5';
+        });
+
+        option.addEventListener('dragend', function () {
+          draggedOption = null;
+          this.style.opacity = '1';
+        });
+      });
+
+      // Drop Events
+      dropZones.forEach(dropZone => {
+        dropZone.addEventListener('dragover', function (e) {
+          e.preventDefault();
+        });
+
+        dropZone.addEventListener('dragenter', function (e) {
+          e.preventDefault();
+          this.style.border = '2px dashed #007bff';
+        });
+
+        dropZone.addEventListener('dragleave', function () {
+          this.style.border = '1px dashed #ccc';
+        });
+
+        dropZone.addEventListener('drop', function () {
+          this.style.border = '1px dashed #ccc';
+          if (draggedOption) {
+            this.textContent = draggedOption.textContent;
+            checkAnswer(this.id);
+          }
+        });
+      });
+    }
+    function checkAnswer(dropZoneId) {
+      const dropZone = document.getElementById(dropZoneId);
+      const feedbackElement = document.getElementById(`feedback${dropZoneId.slice(4)}`);
+
+      if (dropZone.textContent === dropZone.dataset.correct) {
+        feedbackElement.textContent = "إجابة صحيحة!";
+        feedbackElement.style.color = "green";
+      } else {
+        feedbackElement.textContent = "إجابة خاطئة.";
+        feedbackElement.style.color = "red";
+      }
+    }
+    async function initializeApp() {
+      let lessons = await loadQuestions()
+      populateLessons(lessons)
+      const lessonSelect = document.getElementById("lesson-select");
+        lessonSelect.addEventListener("change", function () {
+            if (this.value !== "") {
+                const lessonIndex = parseInt(this.value);
+                const lesson = lessons[lessonIndex];
+                if (lesson) {
+                  currentLesson = lesson
+                  loadExercise(lesson.questions, lesson.optionsSet,lesson.lessonName);
+                }
+            } else {
+                document.getElementById('lesson-container').style.display = 'none'
+            }
+        });
+    }
+
+    initializeApp()
+  </script>
+</body>
+</html>
